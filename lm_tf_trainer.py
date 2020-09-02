@@ -518,7 +518,10 @@ class LMTFTrainer:
                     self.distributed_training_steps(batch)
 
                     training_loss = self.train_loss.result() / ((step + 1) * self.total_train_batch_size)
-                    loss_update = 'Train Epoch ' + str(epochs_trained) + " (loss " + str(round(training_loss.numpy(), 3)) + ")" 
+                    try: 
+                        loss_update = 'Train Epoch ' + str(epochs_trained) + " (loss " + str(round(training_loss.numpy(), 3)) + ")"
+                    except: 
+                        loss_update = 'Train Epoch ' + str(epochs_trained) + " (Calculating)" 
                     epoch_iterator.set_description(loss_update)
 
                     if self.args.debug:
